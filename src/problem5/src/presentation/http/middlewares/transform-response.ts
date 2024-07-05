@@ -11,10 +11,14 @@ interface SuccessResponse {
 }
 
 export function transformResponse(req: Request, res: Response, next: NextFunction) {
-
 	const originalJson = res.json;
 
 	res.json = function (data: any) {
+
+		if(![200, 201].includes(res.statusCode)) { 
+			return originalJson.call(res, data);
+		}
+
 		const transformedData: SuccessResponse = {
 			status: 'success',
 			statusCode: res.statusCode,

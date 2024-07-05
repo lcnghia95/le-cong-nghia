@@ -38,4 +38,14 @@ export class ResourceController {
       next(error);
     }
   }
+
+  static async getResource(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    try {
+      const { id } = req.params;
+      const response = await resourceService.getResource(id);
+      return res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

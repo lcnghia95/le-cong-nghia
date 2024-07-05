@@ -105,4 +105,32 @@ router.delete(
     ResourceController.deleteResource,
 );
 
+/**
+ * @swagger
+ * /api/resource/{id}:
+ *   get:
+ *      summary: get a resource by ID
+ *      tags:
+ *        - Resources
+ *      parameters:
+ *        - name: id
+ *          in: path
+ *          description: ID of the resource to delete
+ *          required: true
+ *          type: string
+ *          format: uuid  # Assuming your ID is in UUID format
+ *      responses:
+ *        204:
+ *          description: Resource deleted successfully
+ *        404:
+ *          description: Resource not found
+ *        500:
+ *          description: Internal server error
+ */
+router.get(
+    '/resource/:id',
+    param('id').isUUID().withMessage('Invalid UUID format'),
+    ResourceController.getResource,
+);
+
 export default router;
