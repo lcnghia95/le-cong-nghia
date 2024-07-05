@@ -6,7 +6,7 @@ const LIMIT_END = Math.floor(
 
 export function checkLimitNumber(n: number): void {
   if (!Number.isInteger(n)) {
-    throw new Error(`The input must be an integer.${n}`);
+    throw new Error(`The input must be an integer`);
   }
 
   if (n < LIMIT_START || n > LIMIT_END) {
