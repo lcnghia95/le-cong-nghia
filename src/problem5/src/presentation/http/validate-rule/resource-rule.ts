@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, check } from 'express-validator';
 
 export const createResourceRules = [
   body('name').notEmpty().isString().withMessage('Name is required'),
@@ -6,6 +6,6 @@ export const createResourceRules = [
 ];
 
 export const updateResourceRules = [
-  body('name').optional().isString().withMessage('Name is required'),
-  body('description').optional().isString().withMessage('Description must be a string'),
+  check('name').optional().notEmpty().withMessage('Name not empty').isString().withMessage('Name must be a string'),
+  check('description').optional().isString().withMessage('Description must be a string'),
 ];

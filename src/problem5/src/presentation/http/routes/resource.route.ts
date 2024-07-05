@@ -7,8 +7,9 @@
 
 import { Router } from 'express';
 import { validateBody } from '../middlewares';
-import { createResourceRules } from '../validate-rule';
+import { createResourceRules, updateResourceRules } from '../validate-rule';
 import { ResourceController } from '../controllers';
+import { param } from 'express-validator';
 
 const router = Router();
 
@@ -69,6 +70,10 @@ router.post('/resource', validateBody(createResourceRules), ResourceController.c
  *       404:
  *         description: Resource not found
  */
-router.put('/resource/:id', validateBody(createResourceRules), ResourceController.updateResource);
+router.put(
+  '/resource/:id',
+  [param('id').isUUID().withMessage('Invalid UUID format'), validateBody(updateResourceRules)],
+  ResourceController.updateResource,
+);
 
 export default router;

@@ -1,4 +1,4 @@
-import { IResourceRepository, ResourceBuilder, ResourceModel } from '../../domain';
+import { IResourceRepository, NotFoundException} from '../../domain';
 
 export class UpdateResourceUseCase {
   constructor(private readonly resourceRepository: IResourceRepository) {}
@@ -7,7 +7,7 @@ export class UpdateResourceUseCase {
     const resource = await this.resourceRepository.getById(id);
 
     if (!resource || !resource.isActive()) {
-      throw new Error('Resource Not Found');
+      throw new NotFoundException('Resource Not Found');
     }
 
     resource.update({
