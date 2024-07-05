@@ -5,7 +5,7 @@ export interface IBase extends Document {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date| null;
+  deletedAt: Date | null;
 }
 
 const BaseSchema: Schema = new Schema(
@@ -32,7 +32,7 @@ const BaseSchema: Schema = new Schema(
     timestamps: true, // Automatically manages createdAt and updatedAt fields
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-  }
+  },
 );
 
 export default BaseSchema;

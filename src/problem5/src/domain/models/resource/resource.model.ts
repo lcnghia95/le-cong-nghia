@@ -1,23 +1,29 @@
 import { BaseModel } from '../../base';
 import { ResourceBuilder } from './resource.builder';
-import { IResourceData } from './resource.interface';
+import { EResourceStatus, IResourceData, IUpdateResource } from './resource.interface';
 
 export class ResourceModel extends BaseModel {
   protected name: string;
-  protected description: string;
+  protected description: string | null;
+  protected status: EResourceStatus;
 
   constructor(builder: ResourceBuilder) {
     super(builder.id, builder.createdAt, builder.updatedAt, builder.deletedAt);
     this.name = builder.name;
     this.description = builder.description;
+    this.status = builder.status;
+  }
+
+  getStatus(): EResourceStatus {
+    return this.status;
   }
 
   getName(): string {
-    return this.name
+    return this.name;
   }
 
-  getDescription(): string {
-    return this.description
+  getDescription(): string | null {
+    return this.description;
   }
 
   getData(): IResourceData {
@@ -28,6 +34,21 @@ export class ResourceModel extends BaseModel {
       deletedAt: this.deletedAt,
       name: this.name,
       description: this.description,
+      status: this.status,
     };
+  }
+
+  update(updatePayload: IUpdateResource): void {
+    this.updatedAt = new Date();
+    if (updatePayload.name !== undefined) {
+      this.name = updatePayload.name;
+    }
+    if (updatePayload.description !== undefined) {
+      this.description = updatePayload.description;
+    }
+  }
+
+  isActive(): boolean {
+    return this.status == EResourceStatus.ACTIVE;
   }
 }

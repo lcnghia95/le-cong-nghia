@@ -1,1 +1,1 @@
-export * from './resource.schema'
+export * from './resource.schema';

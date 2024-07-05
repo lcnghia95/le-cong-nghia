@@ -16,5 +16,4 @@ export interface BaseRepo<T, IGetOption, IGetListOption, IPagingOption> {
   createMany(items: T[]): Promise<T[]>;
   update(item: T): Promise<string>;
   updateMany(items: T[]): Promise<string[]>;
-  delete(id: string): Promise<void>;
 }

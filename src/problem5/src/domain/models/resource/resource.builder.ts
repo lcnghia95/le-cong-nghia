@@ -1,6 +1,7 @@
 import { ResourceModel } from './resource.model';
 import { v4 as uuidv4 } from 'uuid';
 import { BaseBuilder } from '../../base';
+import { EResourceStatus } from './resource.interface';
 
 export class ResourceBuilder implements BaseBuilder<ResourceBuilder> {
   id: string;
@@ -9,11 +10,14 @@ export class ResourceBuilder implements BaseBuilder<ResourceBuilder> {
   deletedAt: Date | null;
   name: string;
   description: string;
+  status: EResourceStatus;
 
   build(): ResourceModel {
     if (!this.id) {
       this.id = uuidv4();
+      this.status = 1;
       this.createdAt = new Date();
+      this.updatedAt = new Date();
     }
     const model = new ResourceModel(this);
     return model;
@@ -46,6 +50,11 @@ export class ResourceBuilder implements BaseBuilder<ResourceBuilder> {
 
   setDescription(description: string): ResourceBuilder {
     this.description = description;
+    return this;
+  }
+
+  setStatus(status: EResourceStatus): ResourceBuilder {
+    this.status = status;
     return this;
   }
 }

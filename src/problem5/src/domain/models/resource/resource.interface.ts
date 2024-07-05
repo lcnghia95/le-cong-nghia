@@ -4,5 +4,16 @@ export interface IResourceData {
   updatedAt: Date;
   deletedAt: Date | null;
   name: string;
-  description: string;
+  description: string | null;
+  status: EResourceStatus;
+}
+
+export interface IUpdateResource {
+  name?: string;
+  description?: string;
+}
+
+export enum EResourceStatus {
+  ACTIVE = 1,
+  INACTIVE = 0,
 }
