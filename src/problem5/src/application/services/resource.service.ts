@@ -1,19 +1,18 @@
 import { IResourceRepository, IResourceData } from '../../domain';
-import { CreateResourceUseCase, UpdateResourceUseCase,DeleteResourceUseCase ,GetResourceUseCase} from '../usecases';
+import { CreateResourceUseCase, UpdateResourceUseCase, DeleteResourceUseCase, GetResourceUseCase } from '../usecases';
 
 export class ResourceService {
   private readonly createResourceUseCase: CreateResourceUseCase;
   private readonly updateResourceUseCase: UpdateResourceUseCase;
   private readonly deleteResourceUseCase: DeleteResourceUseCase;
   private readonly getResourceUseCase: GetResourceUseCase;
-  
+
   constructor(resourceRepository: IResourceRepository) {
     //dependency injection
     this.createResourceUseCase = new CreateResourceUseCase(resourceRepository);
     this.updateResourceUseCase = new UpdateResourceUseCase(resourceRepository);
     this.deleteResourceUseCase = new DeleteResourceUseCase(resourceRepository);
     this.getResourceUseCase = new GetResourceUseCase(resourceRepository);
-
   }
 
   async createResource(name: string, description: string): Promise<IResourceData> {

@@ -12,7 +12,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(morganCustom);
-app.use(transformResponse)
+app.use(transformResponse);
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

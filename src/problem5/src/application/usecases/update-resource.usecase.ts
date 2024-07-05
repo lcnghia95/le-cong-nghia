@@ -1,4 +1,4 @@
-import { IResourceRepository, NotFoundException} from '../../domain';
+import { IResourceRepository, NotFoundException } from '../../domain';
 
 export class UpdateResourceUseCase {
   constructor(private readonly resourceRepository: IResourceRepository) {}

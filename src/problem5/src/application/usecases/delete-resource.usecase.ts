@@ -1,4 +1,4 @@
-import { IResourceRepository, NotFoundException} from '../../domain';
+import { IResourceRepository, NotFoundException } from '../../domain';
 
 export class DeleteResourceUseCase {
   constructor(private readonly resourceRepository: IResourceRepository) {}
@@ -10,7 +10,7 @@ export class DeleteResourceUseCase {
       throw new NotFoundException('Resource Not Found');
     }
 
-    resource.delete()
+    resource.delete();
 
     await this.resourceRepository.update(resource);
 

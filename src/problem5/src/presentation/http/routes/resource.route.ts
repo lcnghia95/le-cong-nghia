@@ -71,11 +71,10 @@ router.post('/resource', validateBody(createResourceRules), ResourceController.c
  *         description: Resource not found
  */
 router.put(
-    '/resource/:id',
-    [param('id').isUUID().withMessage('Invalid UUID format'), validateBody(updateResourceRules)],
-    ResourceController.updateResource,
+  '/resource/:id',
+  [param('id').isUUID().withMessage('Invalid UUID format'), validateBody(updateResourceRules)],
+  ResourceController.updateResource,
 );
-
 
 /**
  * @swagger
@@ -100,9 +99,9 @@ router.put(
  *          description: Internal server error
  */
 router.delete(
-    '/resource/:id',
-    param('id').isUUID().withMessage('Invalid UUID format'),
-    ResourceController.deleteResource,
+  '/resource/:id',
+  param('id').isUUID().withMessage('Invalid UUID format'),
+  ResourceController.deleteResource,
 );
 
 /**
@@ -127,10 +126,6 @@ router.delete(
  *        500:
  *          description: Internal server error
  */
-router.get(
-    '/resource/:id',
-    param('id').isUUID().withMessage('Invalid UUID format'),
-    ResourceController.getResource,
-);
+router.get('/resource/:id', param('id').isUUID().withMessage('Invalid UUID format'), ResourceController.getResource);
 
 export default router;
