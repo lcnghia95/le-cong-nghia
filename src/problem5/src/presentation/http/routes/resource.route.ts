@@ -108,7 +108,7 @@ router.delete(
  * @swagger
  * /api/resource/{id}:
  *   get:
- *      summary: get a resource by ID
+ *      summary: Get a resource by ID
  *      tags:
  *        - Resources
  *      parameters:
