@@ -1,30 +1,31 @@
 import { Request, Response, NextFunction } from 'express';
 
-interface ErrorResponse {
+interface SuccessResponse {
 	status: string;
 	statusCode: number;
 	message: string;
 	timestamp: string;
 	path: string;
+	method:string;
+	data?: any;
 }
 
 export function transformResponse(req: Request, res: Response, next: NextFunction) {
+
 	const originalJson = res.json;
 
 	res.json = function (data: any) {
-		if (typeof data === 'object') {
-			const { status, statusCode, message } = data as ErrorResponse;
-			const transformedData: ErrorResponse = {
-				status: status || 'success',
-				statusCode: statusCode || res.statusCode,
-				message: message || 'OK',
-				timestamp: new Date().toISOString(),
-				path: req.url,
-			};
+		const transformedData: SuccessResponse = {
+			status: 'success',
+			statusCode: res.statusCode,
+			message: 'OK',
+			timestamp: new Date().toISOString(),
+			path: req.originalUrl,
+			method: req.method,
+			data, 
+		};
 
-			return originalJson.call(res, transformedData);
-		}
-
+		return originalJson.call(res, transformedData);
 	};
 
 	next();

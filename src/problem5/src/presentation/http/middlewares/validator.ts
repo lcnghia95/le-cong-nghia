@@ -10,7 +10,6 @@ export const validateBody = (validations: any[]) => {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // Ensure req.body is not empty if needed
     if (Object.keys(req.body).length === 0) {
       return res.status(400).json({ error: 'Request body cannot be empty' });
     }

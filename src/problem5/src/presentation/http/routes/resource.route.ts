@@ -71,9 +71,38 @@ router.post('/resource', validateBody(createResourceRules), ResourceController.c
  *         description: Resource not found
  */
 router.put(
-  '/resource/:id',
-  [param('id').isUUID().withMessage('Invalid UUID format'), validateBody(updateResourceRules)],
-  ResourceController.updateResource,
+    '/resource/:id',
+    [param('id').isUUID().withMessage('Invalid UUID format'), validateBody(updateResourceRules)],
+    ResourceController.updateResource,
+);
+
+
+/**
+ * @swagger
+ * /api/resource/{id}:
+ *   delete:
+ *      summary: Delete a resource by ID
+ *      tags:
+ *        - Resources
+ *      parameters:
+ *        - name: id
+ *          in: path
+ *          description: ID of the resource to delete
+ *          required: true
+ *          type: string
+ *          format: uuid  # Assuming your ID is in UUID format
+ *      responses:
+ *        204:
+ *          description: Resource deleted successfully
+ *        404:
+ *          description: Resource not found
+ *        500:
+ *          description: Internal server error
+ */
+router.delete(
+    '/resource/:id',
+    param('id').isUUID().withMessage('Invalid UUID format'),
+    ResourceController.deleteResource,
 );
 
 export default router;

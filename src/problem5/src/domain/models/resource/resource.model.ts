@@ -48,6 +48,11 @@ export class ResourceModel extends BaseModel {
     }
   }
 
+  delete(): void {
+    super.delete()
+    this.status = EResourceStatus.INACTIVE
+  }
+
   isActive(): boolean {
     return this.status == EResourceStatus.ACTIVE;
   }

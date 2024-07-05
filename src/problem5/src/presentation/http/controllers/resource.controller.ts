@@ -28,4 +28,14 @@ export class ResourceController {
       next(error);
     }
   }
+
+  static async deleteResource(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    try {
+      const { id } = req.params;
+      const response = await resourceService.deleteResource(id);
+      return res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
