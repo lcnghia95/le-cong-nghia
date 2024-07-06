@@ -17,9 +17,7 @@ app.use(transformResponse);
 app.use(helmet());
 app.use(cors());
 
-
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec), () => {
-});
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 connectMongo()
   .then(() => {
@@ -30,7 +28,7 @@ connectMongo()
     const PORT = config.port;
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
-      console.log(`Document link: ${config.backendDomain}/docs`)
+      console.log(`Document link: ${config.backendDomain}/docs`);
     });
   })
   .catch((error) => {
