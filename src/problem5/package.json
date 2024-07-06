@@ -1,17 +1,14 @@
 {
   "name": "problem5",
   "version": "1.0.0",
-  "engines": {
-    "node": ">=18.18.0"
-  },
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.ts\"",
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' -r tsconfig-paths/register  src/presentation/http/http-app.ts",
-    "prepare": "husky"
+    "prestart": "yarn install",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' -r tsconfig-paths/register  src/presentation/http/http-app.ts"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -29,6 +26,7 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.14.9",

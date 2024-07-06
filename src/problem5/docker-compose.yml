@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   mongo:
     image: mongo:7.0.11
@@ -6,7 +8,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - augai-mongo-db:/data/db
+      - mongo-db:/data/db
     ports:
       - ${DATABASE_PORT}:27017
 
@@ -20,7 +22,5 @@ services:
       ME_CONFIG_BASICAUTH_PASSWORD: ${DATABASE_PASSWORD}
       ME_CONFIG_MONGODB_URL: mongodb://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@mongo:${DATABASE_PORT}/
 
-
-
 volumes:
-  augai-mongo-db:
+  mongo-db:

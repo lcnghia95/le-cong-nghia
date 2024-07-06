@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../../../config';
 
-export async function connect() {
+export async function connectMongo() {
   try {
     await mongoose.connect(config.db.url, {
       user: config.db.user,

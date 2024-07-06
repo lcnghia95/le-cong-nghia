@@ -1,5 +1,6 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 import path from 'path';
+import config from '../../../infrastructure/config';
 
 const options: swaggerJSDoc.Options = {
   swaggerDefinition: {
@@ -11,12 +12,12 @@ const options: swaggerJSDoc.Options = {
     },
     servers: [
       {
-        url: 'http://localhost:3001', // Địa chỉ của server của bạn
+        url: config.backendDomain,
         description: 'Development server',
       },
     ],
   },
-  apis: [path.resolve(__dirname, '../routes/**/*.route.ts')], // Đường dẫn đến các file route của bạn
+  apis: [path.resolve(__dirname, '../routes/**/*.route.ts')],
 };
 
 const swaggerSpec = swaggerJSDoc(options);

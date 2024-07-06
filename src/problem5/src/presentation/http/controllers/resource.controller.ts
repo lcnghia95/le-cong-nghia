@@ -48,4 +48,20 @@ export class ResourceController {
       next(error);
     }
   }
+
+  static async getResources(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    try {
+      const page = parseInt(req.query.page as string, 10) || 1;
+      const limit = parseInt(req.query.limit as string, 10) || 10;
+      const filters = {
+        name: req.query.name as string,
+        description: req.query.description as string,
+      };
+
+      const response = await resourceService.getResources(page, limit, filters);
+      return res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

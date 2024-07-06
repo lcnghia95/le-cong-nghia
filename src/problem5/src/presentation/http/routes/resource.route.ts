@@ -7,7 +7,7 @@
 
 import { Router } from 'express';
 import { validateBody } from '../middlewares';
-import { createResourceRules, updateResourceRules } from '../validate-rule';
+import { createResourceRules, getResourcesRules, updateResourceRules } from '../validate-rule';
 import { ResourceController } from '../controllers';
 import { param } from 'express-validator';
 
@@ -31,10 +31,12 @@ const router = Router();
  *               description:
  *                 type: string
  *     responses:
- *       200:
- *         description: Resource created successfully
+ *       201:
+ *         description: OK
  *       400:
  *         description: Bad request
+ *       500:
+ *         description: Internal server error
  */
 router.post('/resource', validateBody(createResourceRules), ResourceController.createResource);
 
@@ -63,12 +65,12 @@ router.post('/resource', validateBody(createResourceRules), ResourceController.c
  *               description:
  *                 type: string
  *     responses:
- *       200:
- *         description: Resource updated successfully
- *       400:
- *         description: Bad request
+ *       201:
+ *         description: OK
  *       404:
  *         description: Resource not found
+ *       500:
+ *         description: Internal server error
  */
 router.put(
   '/resource/:id',
@@ -91,8 +93,8 @@ router.put(
  *          type: string
  *          format: uuid  # Assuming your ID is in UUID format
  *      responses:
- *        204:
- *          description: Resource deleted successfully
+ *        201:
+ *          description: OK
  *        404:
  *          description: Resource not found
  *        500:
@@ -119,13 +121,52 @@ router.delete(
  *          type: string
  *          format: uuid  # Assuming your ID is in UUID format
  *      responses:
- *        204:
- *          description: Resource deleted successfully
+ *        201:
+ *         description: OK
  *        404:
  *          description: Resource not found
  *        500:
  *          description: Internal server error
  */
 router.get('/resource/:id', param('id').isUUID().withMessage('Invalid UUID format'), ResourceController.getResource);
+
+/**
+ * @swagger
+ * /api/resources:
+ *   get:
+ *     summary: Get paginated resources with optional filters
+ *     tags: [Resources]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         required: false
+ *         description: The page number (default is 1)
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         required: false
+ *         description: The number of items per page (default is 10)
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Filter by resource name
+ *       - in: query
+ *         name: description
+ *         schema:
+ *           type: string
+ *         required: false
+ *         description: Filter by resource description
+ *     responses:
+ *       201:
+ *         description: OK
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/resources', getResourcesRules, ResourceController.getResources);
 
 export default router;

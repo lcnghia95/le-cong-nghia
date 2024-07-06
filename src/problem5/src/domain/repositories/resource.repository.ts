@@ -1,15 +1,13 @@
 import { BaseRepo } from '../base';
 import { ResourceModel } from '../models';
-export interface IResourceGetOption {
-  id?: string;
-}
-export interface IResourceGetListOption {
+export interface IGetResourceOption {
   id?: string;
 }
 
-export interface IResourceGetPagingOption {
-  id?: string;
+export interface IGetResourcePagingOption {
+  name?: string;
+  description?: string;
+  status?: number;
 }
 
-export interface IResourceRepository
-  extends BaseRepo<ResourceModel, IResourceGetOption, IResourceGetListOption, IResourceGetPagingOption> {}
+export interface IResourceRepository extends BaseRepo<ResourceModel, IGetResourceOption, IGetResourcePagingOption> {}

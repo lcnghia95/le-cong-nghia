@@ -1,14 +1,11 @@
 export interface QueryOptions<Z> {
-  pageNumber: number;
-  pageSize: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
-  filter?: Z;
+  page: number;
+  limit: number;
+  filters?: Z;
 }
 
-export interface BaseRepo<T, IGetOption, IGetListOption, IPagingOption> {
+export interface BaseRepo<T, IGetOption, IPagingOption> {
   get(option: IGetOption): Promise<T | null>;
-  getList(option: IGetListOption): Promise<T[]>;
   getListPaging(option: QueryOptions<IPagingOption>): Promise<[T[], number]>;
   getById(id: string): Promise<T | null>;
   getByIds(ids: string[]): Promise<T[]>;

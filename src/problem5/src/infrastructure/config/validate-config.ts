@@ -6,10 +6,11 @@ dotenv.config();
 const envVarsSchema = Joi.object({
   NODE_ENV: Joi.string().valid('development', 'production', 'test').default('development'),
   PORT: Joi.number().default(3000),
-  DB_URL: Joi.string().required(),
-  DB_USERNAME: Joi.string().required(),
-  DB_PASSWORD: Joi.string().required(),
-  DB_NAME: Joi.string().required(),
+  DATABASE_URL: Joi.string().required(),
+  DATABASE_USERNAME: Joi.string().required(),
+  DATABASE_PASSWORD: Joi.string().required(),
+  DATABASE_NAME: Joi.string().required(),
+  BACKEND_DOMAIN: Joi.string().uri().required(),
 }).unknown(true);
 
 const { error, value: validatedEnvVars } = envVarsSchema.validate(process.env);
@@ -22,9 +23,10 @@ export default {
   env: validatedEnvVars.NODE_ENV,
   port: validatedEnvVars.PORT,
   db: {
-    url: validatedEnvVars.DB_URL,
-    user: validatedEnvVars.DB_USERNAME,
-    pass: validatedEnvVars.DB_PASSWORD,
-    name: validatedEnvVars.DB_NAME,
+    url: validatedEnvVars.DATABASE_URL,
+    user: validatedEnvVars.DATABASE_USERNAME,
+    pass: validatedEnvVars.DATABASE_PASSWORD,
+    name: validatedEnvVars.DATABASE_NAME,
   },
+  backendDomain: validatedEnvVars.BACKEND_DOMAIN,
 };

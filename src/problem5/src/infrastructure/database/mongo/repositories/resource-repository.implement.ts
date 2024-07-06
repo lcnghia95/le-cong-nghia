@@ -1,8 +1,7 @@
 import { MongooseError } from 'mongoose';
 import {
-  IResourceGetListOption,
-  IResourceGetOption,
-  IResourceGetPagingOption,
+  IGetResourceOption,
+  IGetResourcePagingOption,
   IResourceRepository,
   QueryOptions,
   ResourceModel,
@@ -17,15 +16,10 @@ export class ResourceRepoImpl implements IResourceRepository {
     this.mapper = mapper;
   }
 
-  async get(option: IResourceGetOption): Promise<ResourceModel | null> {
+  async get(option: IGetResourceOption): Promise<ResourceModel | null> {
     const user = await Resource.findOne(option);
     if (!user) return null;
     return this.mapper.toDomain(user);
-  }
-
-  async getList(option: IResourceGetListOption): Promise<ResourceModel[]> {
-    const user = await Resource.find(option);
-    return this.mapper.toDomains(user);
   }
 
   async getById(id: string): Promise<ResourceModel | null> {
@@ -90,7 +84,22 @@ export class ResourceRepoImpl implements IResourceRepository {
     }
   }
 
-  getListPaging(option: QueryOptions<IResourceGetPagingOption>): Promise<[ResourceModel[], number]> {
-    throw new Error('Method not implemented.');
+  async getListPaging(option: QueryOptions<IGetResourcePagingOption>): Promise<[ResourceModel[], number]> {
+    const { page, limit, filters } = option;
+
+    const skip = (page - 1) * limit;
+
+    const query = {
+      ...(filters.name && { name: { $regex: filters.name, $options: 'i' } }),
+      ...(filters.description && { description: { $regex: filters.description, $options: 'i' } }),
+      ...(filters.status && { status: filters.status }),
+    };
+
+    const [resources, total] = await Promise.all([
+      Resource.find(query).skip(skip).limit(limit),
+      Resource.countDocuments(query),
+    ]);
+
+    return [this.mapper.toDomains(resources), total];
   }
 }
