@@ -5,7 +5,7 @@ This repository contains a Node.js application that uses Docker Compose to manag
 ## Prerequisites
 
 - Docker installed on your machine
-- Node.js version >= 18.12.1 installed
+- Node.js version >= v18.18.0 installed
 - npm or yarn package manager
 
 ## Installation
