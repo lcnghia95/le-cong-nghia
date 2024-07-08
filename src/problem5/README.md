@@ -29,16 +29,22 @@ This repository contains a Node.js application that uses Docker Compose to manag
 
 **1. Configure environment variables:**
 
+* Use this command for default configure:
+
+```bash
+   cp .env.example .env
+```
+* OR add file `.env`:
 
 ```env
-    NODE_ENV=development
-    PORT=3001
-    BACKEND_DOMAIN=http://localhost:3001
-    DATABASE_URL=mongodb://localhost:27017
-    DATABASE_USERNAME=admin
-    DATABASE_PASSWORD=admin
-    DATABASE_NAME=challenge
-    DATABASE_PORT=27017
+   NODE_ENV=development
+   PORT=3001
+   BACKEND_DOMAIN=http://localhost:3001
+   DATABASE_URL=mongodb://localhost:27017
+   DATABASE_USERNAME=admin
+   DATABASE_PASSWORD=admin
+   DATABASE_NAME=challenge
+   DATABASE_PORT=27017
 ```
 
 
